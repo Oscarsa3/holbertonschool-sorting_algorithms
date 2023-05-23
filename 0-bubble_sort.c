@@ -10,7 +10,7 @@ void bubble_sort(int *array, size_t size)
 	int a;
 	size_t i = 0, x = 0;
 
-	if (!array[2])
+	if (size == 0 || !array[1])
 		return;
 	while (array[i])
 	{
@@ -22,8 +22,8 @@ void bubble_sort(int *array, size_t size)
 			print_array(array, size);
 		}
 		x++;
-		if (x == size * size)
-			return;
+		if (x == (size * (size * 2)))
+			break;
 		if (i == size - 1)
 			i = 0;
 		else
