@@ -2,8 +2,8 @@
 /**
  * cambiar - change two nodes in a list.
  * @head: A pointer to the head of the doubly-linked list.
- * @n1: A pointer to the first node to swap.
- * @n2: The second node to swap.
+ * @nodo1: A pointer to the first node to change.
+ * @nodo2: The second node to change.
  */
 void cambiar(listint_t **head, listint_t **nodo1, listint_t *nodo2)
 {
@@ -26,7 +26,7 @@ void cambiar(listint_t **head, listint_t **nodo1, listint_t *nodo2)
 void insertion_sort_list(listint_t **list)
 {
 	listint_t *i, *insertar, *tmp;
-	
+
 	if (list == NULL || *list == NULL || (*list)->next == NULL)
 		return;
 	for (i = (*list)->next; i != NULL; i = tmp)
