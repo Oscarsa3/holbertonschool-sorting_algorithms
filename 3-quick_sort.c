@@ -1,44 +1,71 @@
 #include "sort.h"
-void quick(int *array, int lef, int ri, size_t size);
+void esquema_lomuto(int *array, size_t menor, size_t mayor, size_t size);
+void cambiar(int *array, size_t lef, size_t ri);
 /**
-  * quick_sort - function in charge of calling the quick function
-  * @array: An array of integers to sort
-  * @size: The size of the array
-  * Return: sorted array.
-  */
+ * quick_sort - Sorts an array using the quick sort algorithm
+ * @array: The array to sort.
+ * @size: size of the array.
+ */
 void quick_sort(int *array, size_t size)
 {
-	quick(array, 0, size - 1, size);
+	if (array != NULL)
+	{
+		esquema_lomuto(array, 0, size - 1, size);
+	}
 }
 /**
-  * quick - function that sorts an array of integers in ascending
-  * @array: An array of integers to sort.
-  * @lef: left position
-  * @ri: right position
-  * @size: The size of the array
-  * Return: sorted array.
-  */
-void quick(int *array, int lef, int ri, size_t size)
+ * esquema_lomuto - sorts an array using Lomuto partitioning scheme.
+ * @array: The array to sort..
+ * @menor: The position of the array.
+ * @mayor: The ending position of the array.
+ * @size: size of the array.
+ */
+void esquema_lomuto(int *array, size_t menor, size_t mayor, size_t size)
 {
-	int iz = lef, de = ri, tmp, pivote = array[lef];
+	size_t j, i;
+	int pivot;
 
-	do {
-		while (array[iz] < pivote && iz < ri)
-			iz++;
-		while (array[de] > pivote && de > lef)
-			de--;
-		if (iz <= de)
+	if ((menor >= mayor) || (array == NULL))
+		return;
+	pivot = array[mayor];
+	j = menor;
+	for (i = menor; i < mayor; i++)
+	{
+		if (array[i] <= pivot)
 		{
-			tmp = array[iz];
-			array[iz] = array[de];
-			array[de] = tmp;
-			print_array(array, size);
-			iz++;
-			de--;
+			if (j != i)
+			{
+				cambiar(array, j, i);
+				print_array(array, size);
+			}
+			j++;
 		}
-	} while (iz <= de);
-	if (lef < de)
-		quick(array, lef, de, size);
-	if (ri > iz)
-		quick(array, iz, ri, size);
+	}
+	if (j != mayor)
+	{
+		cambiar(array, j, mayor);
+		print_array(array, size);
+	}
+	if (j - menor > 1)
+		esquema_lomuto(array, menor, j - 1, size);
+	if (mayor - j > 1)
+		esquema_lomuto(array, j + 1, mayor, size);
+}
+
+/**
+ * cambiar - changechange two items in an array.
+ * @array: The array to modify.
+ * @lef: The index of the left item.
+ * @ri: The index of the right item.
+ */
+void cambiar(int *array, size_t lef, size_t ri)
+{
+	int tmp;
+
+	if (array != NULL)
+	{
+		tmp = array[lef];
+		array[lef] = array[ri];
+		array[ri] = tmp;
+	}
 }
